@@ -1,15 +1,9 @@
 /venv/
-<<<<<<< HEAD
-=======
-/migrations/*
-\migrations\*
-#!/migrations/__init__.py
-#!\migrations\__init__.py
->>>>>>> origin/main
+
 __pycache__/
 __pycahe__\
 
 \venv\
 
 .idea
-!__init__.py
+
