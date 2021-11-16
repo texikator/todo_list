@@ -1,9 +1,6 @@
 /venv/
-
+\venv\
 __pycache__/
 __pycahe__\
-
-\venv\
-
 .idea
 
