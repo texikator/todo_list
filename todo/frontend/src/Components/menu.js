@@ -10,9 +10,9 @@ const Menu = () => {
           <Nav className="site-header sticky-top py-1">
               <Container class="container d-flex flex-column flex-md-row justify-content-between">
 
-                <a className="py-2 d-none d-md-inline-block" href="#">One</a>
-                <a className="py-2 d-none d-md-inline-block" href="#">Two</a>
-                <a className="py-2 d-none d-md-inline-block" href="#">THree</a>
+                <Nav.Link className="py-2 d-none d-md-inline-block" href="#">One</Nav.Link>
+                <Nav.Link className="py-2 d-none d-md-inline-block" href="#">Two</Nav.Link>
+                <Nav.Link className="py-2 d-none d-md-inline-block" href="#">THree</Nav.Link>
 
               </Container>
         </Nav>

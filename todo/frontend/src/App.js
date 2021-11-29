@@ -6,7 +6,8 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 
-//import 'react-bootstrap/dist/react-bootstrap.min.js';
+
+import 'react-bootstrap/dist/react-bootstrap.min.js';
 import Menu from './Components/menu.js'
 import Footer from './Components/Footer.js'
 //import './app.css';

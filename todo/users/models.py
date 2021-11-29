@@ -6,10 +6,10 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
-    #firstname = models.CharField(max_length=50)
-    #lastname = models.CharField(max_length=50)
+    # firstname = models.CharField(max_length=50)
+    # lastname = models.CharField(max_length=50)
 
-    def __str__ (self):
+    def __str__(self):
         return f'{self.username} {self.first_name} {self.last_name} {self.email}'
 
 
@@ -23,7 +23,7 @@ class Project(models.Model):
     is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{project_name}'
+        return f'{self.project_name}'
 
 
 class ToDo(models.Model):
@@ -34,7 +34,7 @@ class ToDo(models.Model):
     is_deleted = models.BooleanField(default=False)
     project = models.OneToOneField(Project, on_delete=models.CASCADE)
     create_date = models.DateTimeField(auto_now=True)
-    complete_date = models.DateTimeField(blank=True)
+    complete_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.todo_name}'
