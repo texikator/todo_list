@@ -1,28 +1,67 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
-from rest_framework.viewsets import ModelViewSet
+from rest_framework import mixins, status
+
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet, GenericViewSet, ViewSet
 from .models import User, Project, ToDo
 from .serializers import UserModelSerializer, ProjectModelSerializer, ToDoModelSerializer
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from djangorestframework_camel_case.parser import CamelCaseJSONParser
-
+from rest_framework.pagination import LimitOffsetPagination
+from .filters import ProjectFilter, ToDoFilter
+# from rest_framework import mixins
 from rest_framework.generics import CreateAPIView
 
 
-class UserModelViewSet(ModelViewSet):
+# class UserModelViewSet(ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserModelSerializer
+
+class UsersCustomVewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin,  GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
-    renderer_classes = [JSONRenderer]  # CamelCaseJSONParser
+
+
+# class UserViewSet(ViewSet):
+#
+#     def list(self, request):
+#         users = User.objects.all()
+#         serializer = UserModelSerializer(users, many=True)
+#         return Response(serializer.data)
+
+
+class ProjectsLimitOffsetPaginations(LimitOffsetPagination):
+    default_limit = 3
 
 
 class ProjectModelViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-    # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    pagination_class = ProjectsLimitOffsetPaginations
+    filterset_class = ProjectFilter
+
+    def get_queryset(self):
+        name = self.request.query_params.get('name', '')
+        projects = Project.objects.all()
+        if name:
+            projects = projects.filter(project_name__contains=name)
+
+        return projects
+
+
+class ToDoLimitOffsetPagination(LimitOffsetPagination):
+    default_limit = 20
 
 
 class ToDoModelViewSet(ModelViewSet):
     queryset = ToDo.objects.all()
     serializer_class = ToDoModelSerializer
-    # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    filterset_class = ToDoFilter
+
+    def destroy(self, request, pk=None):
+        instance = get_object_or_404(ToDo, pk=pk)
+        instance.is_deleted = True
+        instance.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
