@@ -24,12 +24,17 @@ class UsersCustomVewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.R
     serializer_class = UserModelSerializer
 
 
-# class UserViewSet(ViewSet):
-#
-#     def list(self, request):
-#         users = User.objects.all()
-#         serializer = UserModelSerializer(users, many=True)
-#         return Response(serializer.data)
+class ProjectParamFilterViewSet(ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+    
+    def get_queryset(self):
+        name = self.request.query_params.get('name', '')
+        projects = Project.objects.all()
+        
+        if name:
+            projects = projects.filter(project_name__contains=name)
+        return projects    
 
 
 class ProjectsLimitOffsetPaginations(LimitOffsetPagination):
@@ -40,7 +45,7 @@ class ProjectModelViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectsLimitOffsetPaginations
-    filterset_class = ProjectFilter
+    filterset_fields = ['project_name']
 
     def get_queryset(self):
         name = self.request.query_params.get('name', '')
