@@ -5,7 +5,7 @@ import UsersList from './Components/Users.js';
 import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-
+import {HashRouter, Router} from "react-router-dom";
 
 import 'react-bootstrap/dist/react-bootstrap.min.js';
 import Menu from './Components/menu.js'
@@ -21,9 +21,13 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        const RET = axios.get('http://localhost:8000/api/users');
-
-        console.log(RET.data);
+//        console.log("!!!!!!!!!!!!!!!!!!!!!!!");
+//        axios.get('http://localhost:8000/api/users').then(response => {
+//            console.log(response.data);
+//        }).catch(error => console.log("ERRROER"));
+//
+//
+//        console.log("!!!!!!!!!!!!!!!!!!!!!!!");
         axios.get('http://localhost:8000/api/users').
         then(response => {
             const users = response.data
