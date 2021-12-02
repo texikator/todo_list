@@ -21,6 +21,9 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        const RET = axios.get('http://localhost:8000/api/users');
+
+        console.log(RET.data);
         axios.get('http://localhost:8000/api/users').
         then(response => {
             const users = response.data
@@ -28,6 +31,7 @@ class App extends React.Component {
             {
             'users': users
             })
+
         }).catch(error => console.log(error))
 
     }
