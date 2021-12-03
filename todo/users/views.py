@@ -44,7 +44,7 @@ class ProjectsLimitOffsetPaginations(LimitOffsetPagination):
 class ProjectModelViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-    pagination_class = ProjectsLimitOffsetPaginations
+    # pagination_class = ProjectsLimitOffsetPaginations
     filterset_fields = ['project_name']
 
     def get_queryset(self):

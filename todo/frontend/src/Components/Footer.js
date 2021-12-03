@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 const Footer = () => {
     return (
 
-              <Container class="container">
+              <Container className="container">
 
                     Footer
 

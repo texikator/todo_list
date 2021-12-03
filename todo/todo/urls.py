@@ -24,8 +24,8 @@ filter_router = DefaultRouter()
 # filter_router.register('param', ProjectParamFilterViewSet)
 
 router.register('users', UsersCustomVewSet)
-router.register('project', ProjectModelViewSet)
-router.register('todo', ToDoModelViewSet)
+router.register('projects', ProjectModelViewSet)
+router.register('todos', ToDoModelViewSet)
 # router.register('users', UserModelViewSet)
 # router.register('users', )
 

@@ -1,18 +1,19 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
+import { Link } from 'react-router-dom';
 //import Link from 'react-bootstrap/Link';
 
 //import 'react-bootstrap/dist/react-bootstrap.min.js';
 
 const Menu = () => {
     return (
-          <Nav className="site-header sticky-top py-1">
-              <Container class="container d-flex flex-column flex-md-row justify-content-between">
+          <Nav className="site-header sticky-top py-3">
+              <Container className="container d-flex flex-column flex-md-row justify-content-between">
 
-                <Nav.Link className="py-2 d-none d-md-inline-block" href="#">One</Nav.Link>
-                <Nav.Link className="py-2 d-none d-md-inline-block" href="#">Two</Nav.Link>
-                <Nav.Link className="py-2 d-none d-md-inline-block" href="#">THree</Nav.Link>
+                <Link className="py-6 d-none d-md-inline-block" to="/">Users</Link>
+                <Link className="py-6 d-none d-md-inline-block" to="/projects">Projects</Link>
+                <Link className="py-6 d-none d-md-inline-block" to="/todos">ToDo List</Link>
 
               </Container>
         </Nav>
