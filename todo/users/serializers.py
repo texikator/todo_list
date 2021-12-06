@@ -3,24 +3,24 @@ from rest_framework.serializers import StringRelatedField
 from .models import User, Project, ToDo
 
 
-class UserModelSerializer(HyperlinkedModelSerializer):
+class UserModelSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email','id']
 
 
-class ProjectModelSerializer(HyperlinkedModelSerializer):
+class ProjectModelSerializer(ModelSerializer):
 
     # user = UserModelSerializer(many=True)
-    user = StringRelatedField(many=True)
+    # user = StringRelatedField(many=True)
     class Meta:
         model = Project
         fields = '__all__'
 
 
-class ToDoModelSerializer(HyperlinkedModelSerializer):
+class ToDoModelSerializer(ModelSerializer):
 
-    user = StringRelatedField()
+    # user = StringRelatedField()
     # project = ProjectModelSerializer()
     # project = StringRelatedField()
 

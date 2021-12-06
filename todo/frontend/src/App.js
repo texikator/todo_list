@@ -64,7 +64,8 @@ class App extends React.Component {
                        <Switch>
 
                            <Route exact path='/' component={() => <UsersList users={this.state.users}/>} />
-                           <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}/>} />
+                           <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}
+                                                                            users={this.state.users}/>} />
                            <Route exact path='/todos' component={() => <TodoList todos={this.state.todos}/>} />
 
                            <Redirect from="/users" to="/"/>

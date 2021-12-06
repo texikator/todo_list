@@ -1,6 +1,10 @@
 import React from 'react';
 
-const ProjectItem = ({project}) => {
+const ProjectItem = ({project, users}) => {
+
+
+
+
     return (
         <tr>
             <td>
@@ -16,7 +20,13 @@ const ProjectItem = ({project}) => {
                 {project.createDate}
             </td>
             <td>
-                {project.user}
+
+                {project.user.map((userID) => {
+                    let currentUser = users.find(user => user.id === userID)
+                        return ( <div className="new-line">
+                                     {currentUser.firstName + " " + currentUser.lastName}
+                                  </div>)
+                })}
             </td>
             <td>
                 {project.isDone ? ("Yes") : ("No")}
@@ -29,7 +39,9 @@ const ProjectItem = ({project}) => {
 }
 
 
-const ProjectsList = ({projects}) => {
+const ProjectsList = ({projects, users}) => {
+
+
     return (
         <table>
             <thead>
@@ -42,7 +54,7 @@ const ProjectsList = ({projects}) => {
                 <th> is Deleted </th>
             </thead>
             <tbody>
-                 {projects.map((project) => <ProjectItem project={project} />)}
+                 {projects.map((project) => <ProjectItem project={project} users={users} />)}
             </tbody>
         </table>
     )

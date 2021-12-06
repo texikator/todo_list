@@ -11,9 +11,15 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from djangorestframework_camel_case.parser import CamelCaseJSONParser
 from rest_framework.pagination import LimitOffsetPagination
 from .filters import ProjectFilter, ToDoFilter
-# from rest_framework import mixins
-from rest_framework.generics import CreateAPIView
 
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import BasePermission
+
+
+class StaffOnly(BasePermission):
+
+    def has_permission(self, request, view):
+        return request.user.is_staff
 
 # class UserModelViewSet(ModelViewSet):
 #     queryset = User.objects.all()
