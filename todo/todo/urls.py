@@ -29,8 +29,7 @@ filter_router = DefaultRouter()
 router.register('users', UsersCustomVewSet)
 router.register('projects', ProjectModelViewSet)
 router.register('todos', ToDoModelViewSet)
-# router.register('users', UserModelViewSet)
-# router.register('users', )
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
