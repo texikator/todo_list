@@ -22,6 +22,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import DefaultRouter
 from users.views import ProjectModelViewSet, ToDoModelViewSet, UsersCustomVewSet, ProjectParamFilterViewSet  # UserModelViewSet, UserViewSet  #
 
+
 router = DefaultRouter()
 filter_router = DefaultRouter()
 # filter_router.register('param', ProjectParamFilterViewSet)
