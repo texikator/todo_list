@@ -2,9 +2,6 @@ import React from 'react';
 
 const ProjectItem = ({project, users}) => {
 
-
-
-
     return (
         <tr>
             <td>
@@ -37,7 +34,6 @@ const ProjectItem = ({project, users}) => {
         </tr>
     )
 }
-
 
 const ProjectsList = ({projects, users}) => {
 
