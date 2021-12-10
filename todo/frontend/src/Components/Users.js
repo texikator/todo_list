@@ -21,9 +21,11 @@ const UsersList = ({users}) => {
     return (
         <table>
             <thead>
-                <th> First name</th>
-                <th> Last name </th>
-                <th> Email </th>
+                <tr>
+                    <th> First name</th>
+                    <th> Last name </th>
+                    <th> Email </th>
+                </tr>
             </thead>
             <tbody>
                  {users.map((user) => <UserItem user={user} />)}

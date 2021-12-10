@@ -38,14 +38,16 @@ const TodoList = ({todos}) => {
     return (
         <table>
             <thead>
-                <th> Todo</th>
-                <th> ToDo Description </th>
-                <th> Project</th>
-                <th> User </th>
-                <th> Is Done </th>
-                <th> is Delete  </th>
-                <th> Create Date</th>
-                <th> Complete Date </th>
+                <tr>
+                    <th> Todo</th>
+                    <th> ToDo Description </th>
+                    <th> Project</th>
+                    <th> User </th>
+                    <th> Is Done </th>
+                    <th> is Delete  </th>
+                    <th> Create Date</th>
+                    <th> Complete Date </th>
+                </tr>
 
             </thead>
             <tbody>

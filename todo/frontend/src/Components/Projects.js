@@ -41,13 +41,15 @@ const ProjectsList = ({projects, users}) => {
     return (
         <table>
             <thead>
-                <th> Project</th>
-                <th> Project Description </th>
-                <th> Repositore </th>
-                <th> Create Date </th>
-                <th> User </th>
-                <th> Is Done </th>
-                <th> is Deleted </th>
+               <tr>
+                    <th> Project</th>
+                    <th> Project Description </th>
+                    <th> Repositore </th>
+                    <th> Create Date </th>
+                    <th> User </th>
+                    <th> Is Done </th>
+                    <th> is Deleted </th>
+                </tr>
             </thead>
             <tbody>
                  {projects.map((project) => <ProjectItem project={project} users={users} />)}

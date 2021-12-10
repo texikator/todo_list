@@ -13,7 +13,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from .filters import ProjectFilter, ToDoFilter
 
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, IsAuthenticated
 
 
 class StaffOnly(BasePermission):
@@ -70,6 +70,7 @@ class ToDoModelViewSet(ModelViewSet):
     queryset = ToDo.objects.all()
     serializer_class = ToDoModelSerializer
     filterset_class = ToDoFilter
+    permission_classes = [IsAuthenticated]
 
     def destroy(self, request, pk=None):
         instance = get_object_or_404(ToDo, pk=pk)
