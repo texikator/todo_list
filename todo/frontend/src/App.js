@@ -48,10 +48,16 @@ class App extends React.Component {
         .then(response => {
             this.set_accessToken(response.data['access'])
 
-        }).catch(error=> alert(error))
+        }).catch(error=> {
+        alert(error);
+        this.logout();
+        })
     }
 
     is_auth() {
+
+        //добавить проверку срока действия токена доступа. Если токен истек (["messages"]["code"]: "token_not_valid" + статус 401)
+        //перезапросить токен доступа, в случае ошибки при запросе - this.logout
         return !!this.state.accessToken
 
     }
@@ -82,11 +88,23 @@ class App extends React.Component {
         this.setState({'refreshToken': token});
     }
 
+    check_accessToken() {
+        return true;
+    }
+
+    set_currentUser(username) {
+        const cookies = new Cookies();
+        cookies.set('currentUSer', username)
+        this.setState({'currentUser': username})
+    }
+
     get_headers() {
-        let headers = [];
-        headers['Content-Type'] = 'application/json'
+        let headers = {
+            'Content-Type': 'application/json'
+            }
         if (this.is_auth())
             {
+
                 headers['Authorization'] = 'Bearer ' + this.state.accessToken
             }
         return headers
@@ -99,25 +117,36 @@ class App extends React.Component {
         axios.post('http://127.0.0.1:8000/api/token/get', data)
         .then(response => {
 
-            this.set_accessToken(response.data['access'])
-            this.set_refreshToken(response.data['refresh'])
+            this.set_accessToken(response.data['access']);
+            this.set_refreshToken(response.data['refresh']);
+            this.set_currentUser(username);
 
-        }).catch(error=> alert(error))
-    }
+        }).catch(error=> {
+            alert(error);
+            this.logout();
+            })
+        }
+
 
     load_data() {
-        let headers = this.get_headers()
-        console.log(headers)
-        axios.get('http://localhost:8000/api/users', {headers}).
+        const headers = this.get_headers()
+        console.log({headers})
+        axios.get('http://127.0.0.1:8000/api/users/', {headers}).
         then(response => {
             const users = response.data
             this.setState(
             {
             'users': users
             })
-        }).catch(error => console.log(error));
+        }).catch(error => {
+            console.log(error);
+            this.setState({
+                'users': []
+                 })
+            });
 
-        axios.get('http://localhost:8000/api/projects', {headers}).
+
+        axios.get('http://localhost:8000/api/projects/', {headers}).
         then(response => {
             const projects = response.data
 
@@ -125,16 +154,26 @@ class App extends React.Component {
             {
             'projects': projects
             })
-        }).catch(error => console.log(error));
+        }).catch(error => {
+            console.log(error);
+            this.setState({
+                'projects': []
+                 })
+            });
 
-    axios.get('http://localhost:8000/api/todos', {headers}).
+    axios.get('http://localhost:8000/api/todos/', {headers}).
        then(response => {
            const todos = response.data
            this.setState(
            {
            'todos': todos
            })
-       }).catch(error => console.log(error));
+       }).catch(error => {
+            console.log(error);
+            this.setState({
+                'todos': []
+                 })
+            });
     }
 
     componentDidMount() {
@@ -143,6 +182,9 @@ class App extends React.Component {
     }
 
     render() {
+
+
+
         return (
 
                 <div>
@@ -153,7 +195,7 @@ class App extends React.Component {
                                 <Link className="py-6 d-none d-md-inline-block" to="/">Users</Link>
                                 <Link className="py-6 d-none d-md-inline-block" to="/projects">Projects</Link>
                                 <Link className="py-6 d-none d-md-inline-block" to="/todos">ToDo List</Link>
-                                {this.is_auth() ? <button onClick={() => this.logout()}>Logout</button>
+                                {this.state.currentUser} {this.is_auth() ? <button onClick={() => this.logout()}>Logout</button>
                                     : <Link to='/login'>Login</Link>}
                                 </Container>
                         </Nav>
@@ -164,7 +206,8 @@ class App extends React.Component {
                                                                             users={this.state.users}/>} />
                            <Route exact path='/todos' component={() => <TodoList todos={this.state.todos}/>} />
                            <Route exact path='/login' component={() => <LoginForm
-                                        get_token={(username,password) => this.get_token(username, password)} /> } />
+                                        get_token={(username,password) => this.get_token(username, password)}
+                                        is_auth={()=> this.is_auth()}/> } />
 
                            <Redirect from="/users" to="/"/>
                            <Route component={error404}/>

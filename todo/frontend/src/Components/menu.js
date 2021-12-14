@@ -2,7 +2,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
-import LoginForm from './LoginForm'
+//import LoginForm from './LoginForm'
 //import Link from 'react-bootstrap/Link';
 
 //import 'react-bootstrap/dist/react-bootstrap.min.js';

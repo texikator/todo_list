@@ -25,9 +25,11 @@ class StaffOnly(BasePermission):
 #     queryset = User.objects.all()
 #     serializer_class = UserModelSerializer
 
-class UsersCustomVewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin,  GenericViewSet):
+
+class UsersCustomVewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
+    # permission_classes = [IsAuthenticated]
 
 
 class ProjectParamFilterViewSet(ModelViewSet):
@@ -52,6 +54,7 @@ class ProjectModelViewSet(ModelViewSet):
     serializer_class = ProjectModelSerializer
     # pagination_class = ProjectsLimitOffsetPaginations
     filterset_fields = ['project_name']
+    # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         name = self.request.query_params.get('name', '')
@@ -70,7 +73,7 @@ class ToDoModelViewSet(ModelViewSet):
     queryset = ToDo.objects.all()
     serializer_class = ToDoModelSerializer
     filterset_class = ToDoFilter
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def destroy(self, request, pk=None):
         instance = get_object_or_404(ToDo, pk=pk)
