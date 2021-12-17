@@ -15,6 +15,12 @@ class UserModelSerializer(ModelSerializer):
         fields = ['username', 'first_name', 'last_name', 'email', 'id']
 
 
+class UserModelSerializerLimited(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['is_superuser', 'is_staff'
+                                  ''
+                                  '']
 class ProjectModelSerializer(ModelSerializer):
 
     # user = UserModelSerializer(many=True)
@@ -33,3 +39,13 @@ class ToDoModelSerializer(ModelSerializer):
     class Meta:
         model = ToDo
         fields = '__all__'
+
+class ToDoModelSerializerV05(ModelSerializer):
+
+        user = StringRelatedField()
+        project = ProjectModelSerializer()
+        project = StringRelatedField()
+
+        class Meta:
+            model = ToDo
+            fields = '__all__'

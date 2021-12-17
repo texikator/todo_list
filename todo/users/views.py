@@ -6,7 +6,7 @@ from rest_framework import mixins, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet, ViewSet
 from .models import User, Project, ToDo
-from .serializers import UserModelSerializer, ProjectModelSerializer, ToDoModelSerializer
+from .serializers import UserModelSerializer, ProjectModelSerializer, ToDoModelSerializer, UserModelSerializerLimited
 
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from djangorestframework_camel_case.parser import CamelCaseJSONParser
@@ -32,7 +32,11 @@ class UsersCustomVewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.R
     serializer_class = UserModelSerializer
     # permission_classes = [IsAuthenticated]
 
-
+    def get_serializer_class(self):
+        if self.request.version == "2.0":
+            return UserModelSerializerLimited
+        else:
+            return UserModelSerializer
 # class TokenTestModelSerializer(mixins.RetrieveModelMixin):
 #     # queryset = get_object_or_404(Project, pk=1)
 #     queryset = Project.objects.all()
@@ -78,8 +82,15 @@ class ToDoLimitOffsetPagination(LimitOffsetPagination):
 
 
 class ToDoModelViewSet(ModelViewSet):
+
+    def get_serializer_class(self):
+
+        if self.request.version == "0.5":
+            return ToDoModelSerializerV05
+        return ToDoModelSerializer
+
     queryset = ToDo.objects.all()
-    serializer_class = ToDoModelSerializer
+    # serializer_class =
     filterset_class = ToDoFilter
     # permission_classes = [IsAuthenticated]
 
