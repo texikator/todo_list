@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet, ViewSet
 from .models import User, Project, ToDo
 from .serializers import UserModelSerializer, ProjectModelSerializer, ToDoModelSerializer
+
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from djangorestframework_camel_case.parser import CamelCaseJSONParser
 from rest_framework.pagination import LimitOffsetPagination
@@ -30,6 +31,13 @@ class UsersCustomVewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.R
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
     # permission_classes = [IsAuthenticated]
+
+
+# class TokenTestModelSerializer(mixins.RetrieveModelMixin):
+#     # queryset = get_object_or_404(Project, pk=1)
+#     queryset = Project.objects.all()
+#     serializer_class = TokenTestModelSerializer
+#     permission_class = [IsAuthenticated]
 
 
 class ProjectParamFilterViewSet(ModelViewSet):

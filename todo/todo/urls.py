@@ -20,7 +20,9 @@ from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from rest_framework.routers import DefaultRouter
-from users.views import ProjectModelViewSet, ToDoModelViewSet, UsersCustomVewSet, ProjectParamFilterViewSet  # UserModelViewSet, UserViewSet  #
+from users.views import ProjectModelViewSet, ToDoModelViewSet, UsersCustomVewSet, ProjectParamFilterViewSet
+                        # TokenTestModelViewSet
+                       # TokenT# UserModelViewSet, UserViewSet  #
 
 
 router = DefaultRouter()
@@ -30,6 +32,7 @@ filter_router = DefaultRouter()
 router.register('users', UsersCustomVewSet)
 router.register('projects', ProjectModelViewSet)
 router.register('todos', ToDoModelViewSet)
+# router.register('tokentest', TokenTestModelViewSet)
 
 
 urlpatterns = [

@@ -2,11 +2,17 @@ from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializ
 from rest_framework.serializers import StringRelatedField
 from .models import User, Project, ToDo
 
+#
+# class TokenTestModelSerializer(ModelSerializer):
+#     class Meta:
+#         model = Project
+#         fields = ['id']
+
 
 class UserModelSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email','id']
+        fields = ['username', 'first_name', 'last_name', 'email', 'id']
 
 
 class ProjectModelSerializer(ModelSerializer):
